@@ -18,7 +18,7 @@ gulp.task('www', ['www-start', 'www-watch', 'client-watch', 'static-move-watch']
 
 gulp.task('www-start', ['build-dist'], function () {
     if (www) www.kill();
-    www = spawn('node', ['./dist/src/www'], { stdio: 'inherit' });
+    www = spawn('node', ['./dist/server/www'], { stdio: 'inherit' });
     www.on('close', function (code) {
         if (code === 8) {
             gulp.log('Error detected, waiting for changes...');
@@ -28,7 +28,7 @@ gulp.task('www-start', ['build-dist'], function () {
 
 gulp.task('www-watch', function () {
     // restarts the server when server side code changes, or the client side asset map
-    return gulp.watch(['src/**/*.ts', 'dist/assets/webpack-assets.json'], ["www"]);
+    return gulp.watch(['server/**/*.ts', 'dist/assets/webpack-assets.json'], ["www"]);
 });
 
 var filesToMove = ['public/**/*', 'views/**/*'];
@@ -98,5 +98,5 @@ gulp.task('run-tests', ['build-dist'], function () {
 });
 
 gulp.task('test-watch', function () {
-    gulp.watch(['src/**/*.ts', 'test/**/*.ts'], ['run-tests']);
+    gulp.watch(['server/**/*.ts', 'test/**/*.ts'], ['run-tests']);
 });

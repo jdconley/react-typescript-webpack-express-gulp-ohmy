@@ -6,11 +6,7 @@ var assetsPluginInstance = new AssetsPlugin({
 
 module.exports = {
     entry: {
-        client: path.join(__dirname, "client", "index.tsx"),
-        react: [
-            path.join(__dirname, "node_modules", "react", "react.js"),
-            path.join(__dirname, "node_modules", "react-dom", "index.js")
-        ]
+        client: path.join(__dirname, "client", "index.tsx")
     },
     output: {
         path: path.join(__dirname, "dist"),
@@ -38,5 +34,10 @@ module.exports = {
         ]
     },
 
-    plugins: [assetsPluginInstance]
+    plugins: [assetsPluginInstance],
+
+    externals: {
+        react: 'React',
+        'react-dom': 'ReactDOM'
+    }
 };
